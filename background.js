@@ -16,15 +16,26 @@ $(function () {
 
 	 	//sidebar data
 	 	profile_sidebar_data=$(html_data).find('.ProfileSidebar');
+	 	
+	 	name=$(profile_sidebar_data).find('.ProfileHeaderCard-nameLink').text();
+	 	user_name=$(profile_sidebar_data).find('.u-linkComplex-target').text();
+
+	 	profile_image_url=$(html_data).find('.ProfileAvatar-image')[0].src;
+	 	
 	 	bio=$(profile_sidebar_data).find('.ProfileHeaderCard-bio').text();
 	 	location_data=$(profile_sidebar_data).find('.ProfileHeaderCard-locationText').text();
 	 	joinDate=$(profile_sidebar_data).find('.ProfileHeaderCard-joinDateText').text();
 	 	birthDatetext=$(profile_sidebar_data).find('.ProfileHeaderCard-birthdateText').text();
-
-	 	
-
+	 	console.log('Data Collected');
 	 }); 
 });
+
+chrome.extension.onConnect.addListener(function(port) {
+      port.onMessage.addListener(function(msg) {
+      		var profile_data_pack='{"Name":"'+name+'","tweets":'+tweets+',"following":'+following+',"followers":'+followers+',"lists":'+lists+',"profile_image_url":"'+profile_image_url+'"}';
+           port.postMessage(profile_data_pack);
+      });
+ });
 
 function getTweets () {
 	return tweets;

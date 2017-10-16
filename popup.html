@@ -8,29 +8,34 @@
 	<!--Scripts-->
 	<script src="JS/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8" async defer></script>
 	<script src="JS/bootstrap.min.js" type="text/javascript" charset="utf-8" async defer></script>
-	
+	<script src="JS/popup.js" type="text/javascript" charset="utf-8" async defer></script>
 	<!-- Style Sheets-->
 	<link rel="stylesheet" type="text/css" href="CSS/popup.css" media="screen">
 	<link rel="stylesheet" href="CSS/bootstrap.min.css" media="screen">
 </head>
 <body>
 	<form id="form_section">
-		<img src="Icons/person_default.jpg" class="img-thumbnail" alt="Default Pic" width="400px" height="400px">
+		<img src="Icons/person_default.jpg" id="profile_pic" alt="Default Pic" width="100%" height="100%">
 		<hr>
-  <div class="form-group">
-    <label for="Name">Name:</label>
+  <div class="form-group style="margin:0px" ">
+    <label for="Name" class="form_label">Name:</label>
+    <label id="Name_bk"></label>
   </div>
-  <div class="form-group">
-    <label for="Tweets">Tweets:</label>
+  <div class="form-group style="margin:0px" ">
+    <label for="Tweets" class="form_label">Tweets:</label>
+    <label id="Tweets_bk"></label>
   </div>
-  <div class="form-group">
-    <label for="Tweets">Following:</label>
+  <div class="form-group style="margin:0px" ">
+    <label for="Following" class="form_label">Following:</label>
+    <label id="Following_bk"></label>
   </div>
-  <div class="form-group">
-    <label for="Tweets">Followers:</label>
+  <div class="form-group style="margin:0px" ">
+    <label for="Followers" class="form_label">Followers:</label>
+    <label id="Followers_bk"></label>
   </div>
-  <div class="form-group">
-    <label for="Tweets">Likes:</label>
+  <div class="form-group style="margin:0px" ">
+    <label for="Likes" class="form_label">Likes:</label>
+    <label id="Likes_bk"></label>
   </div>
   <center>
   <button type="submit" class="btn btn-primary">Analyse Profile</button>
