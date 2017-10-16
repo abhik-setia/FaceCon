@@ -5,7 +5,7 @@
   "content_scripts": [
   {
     "matches": [
-      "https://www.google.co.in/*"
+      "<all_urls>"
     ],
     "js": ["JS/jquery-3.2.1.min.js","content.js"]
   }
@@ -21,10 +21,12 @@
   "default_title":"Click Here!"
 },
 "background": {
-  "scripts": ["background.js"]
+  "scripts": ["JS/jquery-3.2.1.min.js","background.js"]
 },
 "permissions":[
   "storage",
-  "tabs"
+  "tabs",
+  "activeTab",
+ "https://twitter.com/*"
 ]
 }
