@@ -12,7 +12,7 @@ chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
 	    	document.getElementById("before_txt").style.display="none";
 	        document.getElementById("form_section").style.display="block";	
 	    	profile_data_pack=JSON.parse(data);
-			document.getElementById("Name_bk").innerHTML=profile_data_pack.Name;
+			document.getElementById("Name_bk").innerHTML=profile_data_pack.name;
 			document.getElementById("Tweets_bk").innerHTML=profile_data_pack.tweets;
 			document.getElementById("Following_bk").innerHTML=profile_data_pack.following;
 			document.getElementById("Followers_bk").innerHTML=profile_data_pack.followers;
