@@ -1,14 +1,16 @@
 var port = chrome.extension.connect({
     name: "FaceCon Network"
 });
-
+	    
 chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
     var curr_tab=tabs[0].url;
     var urlPattern=new RegExp("https://twitter.com/*");
     if(curr_tab.match(urlPattern)){
-	    port.postMessage({ url:curr_tab,msg:'collect_data'});
-
+    	document.getElementById("form_section").style.display="none";
+    	port.postMessage({ url:curr_tab,msg:'collect_data'});
 	    port.onMessage.addListener(function(data) {
+	    	document.getElementById("before_txt").style.display="none";
+	        document.getElementById("form_section").style.display="block";	
 	    	profile_data_pack=JSON.parse(data);
 			document.getElementById("Name_bk").innerHTML=profile_data_pack.Name;
 			document.getElementById("Tweets_bk").innerHTML=profile_data_pack.tweets;
