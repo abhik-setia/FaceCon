@@ -12,10 +12,16 @@ function getData (url,port,callback) {
 	 	twitter_data_items_present=$(profile_data).find('.ProfileNav-label');
 	 	twitter_data_items=[];
 	 	$(twitter_data_items_present).each(function() {
-	 		twitter_data_items.push($(this).text().toLowerCase());
+	 		item_val=$(this).text().toLowerCase().trim();
+	 		if(item_val!='')
+	 		twitter_data_items.push(item_val);
 	 	});
+	 	
+	 	console.log(twitter_data_items);
+	 	
 	 	//Twitter Data
 	 	for(var i=0;i<twitter_data_items.length;i++){
+
 	 		if(twitter_data_items[i]=="tweets")
 	 			tweets=$(profile_data).find('span.ProfileNav-value').eq(i).attr("data-count");
 	 		else if(twitter_data_items[i]=="following")
@@ -23,7 +29,7 @@ function getData (url,port,callback) {
 	 		else if(twitter_data_items[i]=="followers")
 	 			followers=$(profile_data).find('span.ProfileNav-value').eq(i).attr("data-count");
 	 		else if(twitter_data_items[i]=="lists")
-	 			lists=$(profile_data).find('span.ProfileNav-value').eq(i).attr("data-count");
+	 			lists=$(profile_data).find('span.ProfileNav-value').eq(i).text().trim();
 	 		else if(twitter_data_items[i]=="moments")
 	 			moments=$(profile_data).find('span.ProfileNav-value').eq(i).attr("data-count");
 	 		else if(twitter_data_items[i]=="likes")
