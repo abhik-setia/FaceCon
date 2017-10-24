@@ -18,7 +18,9 @@
   <div id="before_txt">
    </div>
 
-	<form id="form_section">
+   <h5 id="step_1" style='color: cornflowerblue;'></h5>
+   
+	<form id="form_section" action="" method="post" >
 		<img src="Icons/person_default.jpg" id="profile_pic" class="img-circle img-responsive" alt="Default Pic" style="padding:5%;">
 		<hr style="margin-top: 0px">
    <div id="form-group-div">
@@ -52,10 +54,12 @@
     <label id="Moments_bk" class="form_label_val"></label>
   </div>
   <center>
-  <button type="submit" class="btn btn-primary">Analyse Profile</button>
+  <button type="submit" id="analyse_btn" class="btn btn-primary" style="display: none;" >Analyse Profile</button>
   </center>
     </div> 
 </form>
-
+<center>
+<button class="btn btn-primary" style="display: none; margin:2% " id="update_btn">Save This Profile</button>
+</center>
 </body>
 </html>

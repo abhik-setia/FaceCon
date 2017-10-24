@@ -16,9 +16,6 @@ function getData (url,port,callback) {
 	 		if(item_val!='')
 	 		twitter_data_items.push(item_val);
 	 	});
-	 	
-	 	console.log(twitter_data_items);
-	 	
 	 	//Twitter Data
 	 	for(var i=0;i<twitter_data_items.length;i++){
 
@@ -31,7 +28,7 @@ function getData (url,port,callback) {
 	 		else if(twitter_data_items[i]=="lists")
 	 			lists=$(profile_data).find('span.ProfileNav-value').eq(i).text().trim();
 	 		else if(twitter_data_items[i]=="moments")
-	 			moments=$(profile_data).find('span.ProfileNav-value').eq(i).attr("data-count");
+	 			moments=$(profile_data).find('span.ProfileNav-value').eq(i).text().trim();
 	 		else if(twitter_data_items[i]=="likes")
 	 			likes=$(profile_data).find('span.ProfileNav-value').eq(i).attr("data-count");
 	 		else{
