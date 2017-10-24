@@ -2,7 +2,7 @@ var port = chrome.extension.connect({
     name: "FaceCon Network"
 });
 //vars
-var html_data,profile_data,tweets=0,following=0,followers=0,lists=0,moments=0,likes=0;
+var html_data,profile_data,tweets=0,following=0,followers=0,lists=0,likes=0;
 var data_collected=0;
 function getData (url,port,callback) {
 	 $.get(url,function (data) {
@@ -16,6 +16,7 @@ function getData (url,port,callback) {
 	 		if(item_val!='')
 	 		twitter_data_items.push(item_val);
 	 	});
+	 	reset_data();
 	 	//Twitter Data
 	 	for(var i=0;i<twitter_data_items.length;i++){
 
@@ -27,13 +28,12 @@ function getData (url,port,callback) {
 	 			followers=$(profile_data).find('span.ProfileNav-value').eq(i).attr("data-count");
 	 		else if(twitter_data_items[i]=="lists")
 	 			lists=$(profile_data).find('span.ProfileNav-value').eq(i).text().trim();
-	 		else if(twitter_data_items[i]=="moments")
-	 			moments=$(profile_data).find('span.ProfileNav-value').eq(i).text().trim();
 	 		else if(twitter_data_items[i]=="likes")
 	 			likes=$(profile_data).find('span.ProfileNav-value').eq(i).attr("data-count");
 	 		else{
 	 			continue;
 	 		}
+
 	 	}
 
 	 	validate_data();
@@ -45,6 +45,7 @@ function getData (url,port,callback) {
 	 	user_name=$(profile_sidebar_data).find('.u-linkComplex-target').text().trim();
 
 	 	profile_image_url=$(html_data).find('.ProfileAvatar-image')[0].src;
+	 	profile_image_bk_url=$(html_data).find('.ProfileCanopy-headerBg').children()[0].src;
 	 	
 	 	verified_account_data=$(profile_sidebar_data).find('.ProfileHeaderCard-badges').text().trim();
 	 	
@@ -73,7 +74,9 @@ function getData (url,port,callback) {
        	callback(port,data_collected);
 	 });  
 }
-
+function reset_data(){
+	tweets=0;following=0;followers=0;lists=0;likes=0;
+}
 function validate_data(){
 	//validation
 	 	if(lists===undefined)
@@ -86,8 +89,7 @@ function validate_data(){
 	 		followers=0;
 	 	if(likes===undefined)
 	 		likes=0;
-	 	if(moments===undefined)
-	 		moments=0;
+	 	
 }
 
 chrome.extension.onConnect.addListener(function(port) {
@@ -100,32 +102,16 @@ chrome.extension.onConnect.addListener(function(port) {
       					',"followers":'+followers+
       					',"lists":'+lists+
       					',"likes":'+likes+
-      					',"moments":'+moments+
       					',"username":"'+user_name+
       					'","bio":"'+bio+
       					'","location":"'+location_data+
       					'","join_date":"'+joinDate+
       					'","verified_account":"'+verified_account_data+
       					'","birth_date":"'+birthDatetext+
+      					'","profile_image_bk_url":"'+profile_image_bk_url+
       					'","profile_image_url":"'+profile_image_url+'"}';
         				console.log(profile_data_pack);
         				port.postMessage(profile_data_pack);		
       				});  					
       	});
  });
-
-function getTweets () {
-	return tweets;
-}
-function getFollowing () {
-	return following;
-}
-function getFollowers () {
-	return followers;
-}
-function getLists () {
-	return lists;
-}
-function getMoments () {
-	return moments;
-}
