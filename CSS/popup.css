@@ -6,6 +6,10 @@ body{
 	padding: 5%;
 	background-color: #222;
 }
+#form-group-div-result{
+  padding: 5%;
+  background-color: #222;
+}
 .form_label{
 	color:cornflowerblue;
 }
