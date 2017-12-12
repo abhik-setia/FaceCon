@@ -100,6 +100,7 @@ document.getElementById("analyse_btn").addEventListener("click",function(){
 	        // Set up an asynchronous AJAX POST request
 	        var hr = new XMLHttpRequest();
 	        var url = "http://127.0.0.1:5000/fakeprof";
+	        
 	        hr.open("POST", url, true);
 	        
 	        var params = "name="+profile_data_pack.name+
@@ -137,20 +138,16 @@ document.getElementById("analyse_btn").addEventListener("click",function(){
 	                    document.getElementById('form-group-div-result').style.display='block';
 	                    document.getElementById('analyse_btn').style.display='none';
 
-	                    document.getElementById('probabilty_bk').innerHTML=probability;
-						document.getElementById('profile_type_bk').innerHTML=profile_type;
-
+	                   document.getElementById('profile_type_bk').innerHTML=profile_type;
 
 	                } else {
 	                    // Show what went wrong
 	                    console.log('Something went wrong')
 	                }
 	            }
-	        };
-	            			
+	        };       			
 	        hr.send(params);
 	    }
-
 	sendRequest();    
 });
 
@@ -170,6 +167,73 @@ document.getElementById("update_btn").addEventListener("click",function(){
 	    }
 	  });
 });
+
+document.getElementById("feedback_btn").addEventListener("click",function () {
+	document.getElementById("feedback_btn_col").style.display = 'block';
+});
+
+document.getElementById("feedback_btn_fake").addEventListener("click",function () {
+	document.getElementById("feedback_btn_col").style.display = 'none';
+	document.getElementById("feedback_btn").style.display = 'none';
+	document.getElementById("res_txt").style.display = 'block';
+	sendFeedback(1);
+});
+
+document.getElementById("feedback_btn_legitimate").addEventListener("click",function () {
+	document.getElementById("feedback_btn_col").style.display = 'none';
+	document.getElementById("feedback_btn").style.display = 'none';
+	document.getElementById("res_txt").style.display = 'block';
+	sendFeedback(0);
+});
+
+function sendFeedback(profile_type){
+
+			// Cancel the form submit
+    		event.preventDefault();
+
+	        // Set up an asynchronous AJAX POST request
+	        var hr = new XMLHttpRequest();
+	        var url = "http://127.0.0.1:5000/feedback";
+	        
+	        hr.open("POST", url, true);
+	        
+	        var params = "name="+profile_data_pack.name+
+	        			"&tweets="+profile_data_pack.tweets+
+	        			"&following="+profile_data_pack.following+
+	        			"&followers="+profile_data_pack.followers+
+	        			"&lists="+profile_data_pack.lists+
+	        			"&likes="+profile_data_pack.likes+
+	        			"&username="+profile_data_pack.username+
+	        			"&bio="+profile_data_pack.bio+
+	        			"&location="+profile_data_pack.location+
+	        			"&join_date="+profile_data_pack.join_date+
+	        			"&verified_account="+profile_data_pack.verified_account+
+	        			"&birth_date="+profile_data_pack.birth_date+
+	        			"&profile_image_bk_url="+profile_data_pack.profile_image_bk_url+
+	        			"&profile_image_url="+profile_data_pack.profile_image_url+
+	        			"&profile_type="+profile_type;
+	    	    console.log('Response Sent with params '+params );
+	                
+	        // Set correct header for form data 
+		    hr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			
+	        // Handle request state change events
+	        hr.onreadystatechange = function() { 
+	                // If the request completed
+	            if (hr.readyState == 4) {
+	                if (hr.status == 200) {
+	                    // success
+	                    resp=JSON.parse(hr.responseText);
+	                    console.log('Response Sent with params '+params );
+	                } else {
+	                    // Show what went wrong
+	                    console.log('Something went wrong')
+	                }
+	            }
+	        }; 			
+	        hr.send(params);
+}
+
 
 document.getElementById("remove_btn").addEventListener("click",function(){
 	chrome.storage.sync.remove("profile_data_pack", function(items) {
@@ -194,6 +258,7 @@ chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
     	document.getElementById("form_section").style.display="none";
     	port.postMessage({ url:curr_tab,msg:'collect_data'});
 	    port.onMessage.addListener(function(data) {
+	    	console.log(data);
 	    	document.getElementById("before_txt").style.display="none";
 	        document.getElementById("form_section").style.display="block";	
 	    	profile_data_pack=JSON.parse(data);

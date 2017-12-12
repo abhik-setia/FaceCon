@@ -1,10 +1,14 @@
 var port = chrome.extension.connect({
     name: "FaceCon Network"
 });
-//vars
+
+//defining variables here
 var html_data,profile_data,tweets=0,following=0,followers=0,lists=0,likes=0;
 var data_collected=0;
+
+//This function will crawl data from profile when clicked through chrome extension.
 function getData (url,port,callback) {
+	//Making request to twitter with user profile
 	 $.get(url,function (data) {
 	 	html_data=data;
 	 	profile_data=$(html_data).find('.ProfileNav-list');
@@ -33,7 +37,6 @@ function getData (url,port,callback) {
 	 		else{
 	 			continue;
 	 		}
-
 	 	}
 
 	 	validate_data();
@@ -50,7 +53,7 @@ function getData (url,port,callback) {
 	 	verified_account_data=$(profile_sidebar_data).find('.ProfileHeaderCard-badges').text().trim();
 	 	
 	 	if(verified_account_data=='')
-	 	verified_account_data='Not Verified account';	
+	 		verified_account_data='Not Verified account';	
 	 	
 	 	bio=$(profile_sidebar_data).find('.ProfileHeaderCard-bio').text().trim();
 	 	location_data=$(profile_sidebar_data).find('.ProfileHeaderCard-locationText').text().trim();
@@ -62,21 +65,26 @@ function getData (url,port,callback) {
 	 	joinDate= join_date_items[1]+" "+join_date_items[2];
 	 	
 	 	birth_day_items=birthDatetext.split(" ");
+	 	
 	 	if(birthDatetext!=null && birth_day_items[3]!=null)	
 	 	{
 	 		date=birth_day_items[3].toString();
 	 		birth_day_items[3]=date.substr(0,date.length-1);
+	 		birthDatetext=birth_day_items.slice(2, birth_day_items.length).join(" ");
 	 	}
-	 	birthDatetext=birth_day_items.slice(2, birth_day_items.length).join(" ");
 	 	
 	 	console.log('Data Collected');
        	data_collected=1;
        	callback(port,data_collected);
+
 	 });  
 }
+
+//reseting te values of variables
 function reset_data(){
 	tweets=0;following=0;followers=0;lists=0;likes=0;
 }
+
 function validate_data(){
 	//validation
 	 	if(lists===undefined)

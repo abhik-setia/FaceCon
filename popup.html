@@ -58,13 +58,12 @@
 
 <div id="form-group-div-result" style="display: none">      
   <div class="form-group style="margin:0px" ">
-    <label for="probabilty" class="form_label">Probabilty:</label>
-    <label id="probabilty_bk" class="form_label_val"></label>
-  </div>
-  <div class="form-group style="margin:0px" ">
     <label for="profile_type" class="form_label">Profile Type :</label>
     <label id="profile_type_bk" class="form_label_val"></label>
+    <hr>
+    <a style="color: #fff" id="feedback_btn"> Send a feedback.</a>
   </div>
+
 </div> 
 
 <center>
@@ -72,5 +71,13 @@
 <button class="btn btn-primary" style="display: none; margin:2% " id="update_btn">Save This Profile</button>
 <button class="btn btn-primary" style="display: none; margin:2% " id="remove_btn">Remove Saved Profile</button>
 </center>
+
+<div class="container" style="display: none" id="feedback_btn_col">
+  <div class="row">
+      <button class="btn btn-danger"  style="margin:1%;" id="feedback_btn_fake">Fake </button>    
+      <button class="btn btn-success" id="feedback_btn_legitimate">Legitimate </button>
+  </div>
+</div>
+     <p style="display: none;" id="res_txt">Response has been submitted.</p>
 </body>
 </html>
